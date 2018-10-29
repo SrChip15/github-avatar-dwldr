@@ -21,6 +21,9 @@ const getRepoContributors = function(repoOwner, repoName, callback) {
         callback(err, body);
       }
     });
+  } else {
+    // user arguments validation failed
+    throw new TypeError('invalid arguments');
   }
 };
 
@@ -48,7 +51,9 @@ const getJSON = function(err, body) {
 
 // downloadImageByUrl('https://avatars2.githubusercontent.com/u/2741?v=3&s=466', './avatar/kvirani.jpg');
 console.log('Welcome to the GitHub Avatar Downloader!');
-getRepoContributors('facebook', 'react', getJSON);
-
+const args = process.argv.slice(2);
+const repoOwner = args[0];
+const repoName = args[1];
+getRepoContributors(repoOwner, repoName, getJSON);
 
 
