@@ -24,12 +24,17 @@ const getRepoContributors = function(repoOwner, repoName, callback) {
   }
 };
 
-const isSuccess = function(err, body) {
+const getJSON = function(err, body) {
   if (err) throw err;
+  const res = JSON.parse(body);
+  for (let person in res) {
+    console.log(res[person]['avatar_url']);
+  }
+  // console.log(res);
   // console.log(body);
 };
 
 
 console.log('Welcome to the GitHub Avatar Downloader!');
-getRepoContributors('facebook', 'react', isSuccess);
+getRepoContributors('facebook', 'react', getJSON);
 
