@@ -24,17 +24,31 @@ const getRepoContributors = function(repoOwner, repoName, callback) {
   }
 };
 
+const downloadImageByUrl = function(url, filePath) {
+  // dir check/creation
+  if (fs.existsSync('./avatar')) {
+  } else {
+    fs.mkdirSync('./avatar');
+  }
+
+  // get image and write to disk
+  request(url).pipe(fs.createWriteStream(filePath));
+};
+
 const getJSON = function(err, body) {
   if (err) throw err;
   const res = JSON.parse(body);
   for (let person in res) {
-    console.log(res[person]['avatar_url']);
+    downloadImageByUrl((res[person]['avatar_url']), 'avatar/' + res[person]['login'] + '.jpg');
   }
   // console.log(res);
   // console.log(body);
 };
 
 
+// downloadImageByUrl('https://avatars2.githubusercontent.com/u/2741?v=3&s=466', './avatar/kvirani.jpg');
 console.log('Welcome to the GitHub Avatar Downloader!');
 getRepoContributors('facebook', 'react', getJSON);
+
+
 
