@@ -44,8 +44,6 @@ const getJSON = function(err, body) {
   for (let person in res) {
     downloadImageByUrl((res[person]['avatar_url']), 'avatar/' + res[person]['login'] + '.jpg');
   }
-  // console.log(res);
-  // console.log(body);
 };
 
 
